@@ -1,7 +1,8 @@
 FROM debian:stretch
 
 RUN apt-get update # 20170901
-RUN apt-get install -y grub-efi-amd64-bin dosfstools rsync
+RUN apt-get install -y grub-efi-amd64-bin gdisk dosfstools \
+    zip
 
 RUN grub-mkimage -o /root/bootx64.efi -p /efi/boot -O x86_64-efi \
  fat iso9660 part_gpt part_msdos \

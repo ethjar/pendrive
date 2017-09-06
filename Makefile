@@ -12,7 +12,16 @@ docker:
 .PHONY: docker
 
 ethjar.iso:
-	 docker run --privileged -ti --rm -v $(CURDIR):/workspace eu.gcr.io/ethjar-store/ethjar:live
+# TODO: Create custom iso
+	 touch ethjar.iso
 
-ethjar.img: ethjar.iso
-	docker run --rm --privileged -v $(CURDIR):/workspace -ti eu.gcr.io/ethjar-store/ethjar:usb
+ethjar.zip: ethjar.iso
+	docker run --rm -v $(CURDIR):/workspace -ti eu.gcr.io/ethjar-store/ethjar:usb
+
+console:
+	docker run --rm --privileged -v $(CURDIR):/workspace -ti eu.gcr.io/ethjar-store/ethjar:usb bash
+
+clean:
+	rm ethjar.iso
+	rm ethjar.zip
+.PHONY: clean
